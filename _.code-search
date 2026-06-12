@@ -1,0 +1,14 @@
+# Query: 졸업
+# ContextLines: 1
+
+2 results - 2 files
+
+guestbook.html:
+  7    <title>방명록 — 결</title>
+  8:   <meta name="description" content="결 GYEOL 방명록 — 졸업공연을 함께한 모든 분들에게 메시지를 남겨주세요.">
+  9    <link rel="stylesheet"
+
+program.html:
+  7    <title>프로그램 — 결</title>
+  8:   <meta name="description" content="결 GYEOL 2026 졸업공연 프로그램 — 8개의 무대, 모든 연주자 프로필.">
+  9    <link rel="stylesheet"
