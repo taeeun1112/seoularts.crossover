@@ -442,7 +442,8 @@ body:not(.light-mode) .timeline-line {
 .timeline-card {
   display: flex;
   flex-direction: row;
-  width: 322px;
+  width: 380px;
+  max-width: 100%;
   height: 240px;
   background: transparent;
   border: 2px solid var(--border-strong);
@@ -459,7 +460,8 @@ body:not(.light-mode) .timeline-line {
 
 /* 4:5 Aspect Ratio Photo — flex: none, natural height fills the padded card */
 .timeline-photo-wrapper {
-  width: 148px;
+  width: auto;
+  aspect-ratio: 4 / 5;
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
@@ -593,14 +595,14 @@ body:not(.light-mode) .timeline-card:hover {
   .timeline-card {
     width: 100% !important;
     max-width: 350px !important;
-    height: 220px;
+    height: 187px;
     padding: 4px; /* keep 3pt border gap on mobile too */
     gap: 0;
   }
 
   /* 4:5 Aspect Ratio Photo on Mobile */
   .timeline-photo-wrapper {
-    width: 140px;
+    width: auto;
     border-radius: 6px;
   }
 
