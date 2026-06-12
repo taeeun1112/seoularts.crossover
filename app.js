@@ -235,8 +235,8 @@ const staffData = [
   {
     role: '무대',
     members: [
-      { name: '유서윤', role: '무대조감독' },
       { name: '이소은', role: '무대감독' },
+      { name: '유서윤', role: '무대조감독' },
     ]
   },
   {

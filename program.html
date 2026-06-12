@@ -249,6 +249,13 @@
             const indexB = planningOrder.indexOf(b.name);
             return indexA - indexB;
           });
+        } else if (group.role === '무대') {
+          const stageOrder = ['무대감독', '무대조감독'];
+          sortedMembers = [...group.members].sort((a, b) => {
+            const indexA = stageOrder.indexOf(a.role);
+            const indexB = stageOrder.indexOf(b.role);
+            return indexA - indexB;
+          });
         } else {
           sortedMembers = [...group.members].sort((a, b) => a.name.localeCompare(b.name, 'ko'));
         }
