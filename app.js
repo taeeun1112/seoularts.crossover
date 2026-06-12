@@ -54,7 +54,7 @@ const programData = [
     composer: '임한은',
     performers: [
       { name: '임한은', role: '작곡' },
-      { name: '김민준', role: '건반' },
+      { name: '김민준(건반)', role: '건반' },
       { name: '김동욱', role: '기타' },
       { name: '안재영', role: '베이스' },
       { name: '계백', role: '드럼' },
@@ -79,7 +79,7 @@ const programData = [
       { name: '윤태현', role: '태평소' },
       { name: '박다혜', role: '대금' },
       { name: '정서희', role: '해금' },
-      { name: '김민준', role: '사물' },
+      { name: '김민준(타악)', role: '사물' },
       { name: '박율이', role: '사물' },
       { name: '김정환', role: '사물' },
       { name: '김규희', role: '사물' },
@@ -139,7 +139,7 @@ const programData = [
       { name: '백인이', role: '해금' },
       { name: '김규희', role: '북·꽹과리' },
       { name: '박율이', role: '베이스드럼' },
-      { name: '김민준', role: '장구' },
+      { name: '김민준(타악)', role: '장구' },
     ]
   },
   {
@@ -161,7 +161,7 @@ const programData = [
       { name: '송예인', role: '대금' },
       { name: '김보라', role: '해금' },
       { name: '박율이', role: '장구' },
-      { name: '김민준', role: '꽹과리' },
+      { name: '김민준(타악)', role: '꽹과리' },
       { name: '장순우', role: '공·베이스드럼' },
       { name: '김서연', role: '판소리' },
       { name: '임근희', role: '판소리' },
@@ -325,7 +325,7 @@ const PROFILE_PASSWORDS = {
   "김상훈": "2121033", "김유민": "2121006", "정기백": "2221023", "박주하": "2221024", "김건희": "2221031",
   "김민정": "2321025", "서재은": "2552006", "손예지": "2552048", "오준": "2222027", "우태은": "2351016",
   "박윤재": "2422010", "박다혜": "2531009", "송예인": "2531010", "윤태경": "2631012", "김정환": "2231019",
-  "박율이": "2431018", "김민준": ["2531005", "1932025"], "장순우": "2531006", "유예진": "2631004", "서연우": "2631007",
+  "박율이": "2431018", "김민준": ["2531005", "1932025"], "김민준(건반)": "1932025", "김민준(타악)": "2531005", "장순우": "2531006", "유예진": "2631004", "서연우": "2631007",
   "김규희": "2631008", "윤태현": "2431012", "김범수": "2431015", "김하랑": "2531014", "이윤서": "2331009",
   "김보라": "2431011", "정서희": "2431016", "백인이": "2531015", "박소현": "2331002", "이연화": "2631013",
   "홍유경": "2631003", "나현지": "2631005", "천혜원": "2631017", "정윤탁": "2331020", "김시언": "2431023",
@@ -702,7 +702,7 @@ function performSearch(query) {
         <div class="profile-initials" style="display:none;">${initial}</div>
       </div>
       <div class="search-result-info">
-        <div class="search-result-name">${person.name}</div>
+        <div class="search-result-name">${person.name.replace(/\(.*?\)/g, '')}</div>
         <div class="search-result-role">${person.roles.join(', ')}</div>
         <div class="search-result-song">${person.songs.join(' • ')}</div>
       </div>
@@ -758,7 +758,7 @@ async function openProfileModal(person) {
             <div class="profile-initials" style="display:none; font-size:36px;">${initial}</div>
           </div>
           <div class="profile-modal-details">
-            <h2 class="profile-modal-name">${person.name}</h2>
+            <h2 class="profile-modal-name">${person.name.replace(/\(.*?\)/g, '')}</h2>
             <p class="profile-modal-role">${person.roles.join(', ')}</p>
             <p class="profile-modal-song">${person.songs.join(' • ')}</p>
           </div>
@@ -779,7 +779,7 @@ async function openProfileModal(person) {
         </div>
         
         <button class="profile-write-btn" id="profileWriteBtn">
-          ${person.name}님에게 방명록 작성하기
+          ${person.name.replace(/\(.*?\)/g, '')}님에게 방명록 작성하기
         </button>
       </div>
     </div>
@@ -802,7 +802,14 @@ async function openProfileModal(person) {
     const countEl = document.getElementById('profileMsgCount');
 
     const allEntries = await GuestbookApp.getEntries();
-    const filtered = allEntries.filter(entry => entry.recipient && entry.recipient.trim() === person.name);
+    const filtered = allEntries.filter(entry => {
+      if (!entry.recipient) return false;
+      const rec = entry.recipient.trim();
+      if (rec === person.name) return true;
+      // Fallback for legacy messages sent to "김민준" (shows on both profiles)
+      if (rec === '김민준' && person.name.startsWith('김민준')) return true;
+      return false;
+    });
 
     countEl.textContent = `${filtered.length}개의 메시지`;
     listEl.innerHTML = '';

@@ -123,7 +123,7 @@
             <img
               class="timeline-photo"
               src="${imgPath}"
-              alt="${performer.name}"
+              alt="${performer.name.replace(/\(.*?\)/g, '')}"
               loading="lazy"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             >
@@ -133,7 +133,7 @@
             <div class="timeline-card-meta">${songTitle}</div>
             <div class="timeline-card-identity">
               <div class="timeline-card-role">${performer.role}</div>
-              <div class="timeline-card-name">${performer.name}</div>
+              <div class="timeline-card-name">${performer.name.replace(/\(.*?\)/g, '')}</div>
             </div>
           </div>
         </div>
