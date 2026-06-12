@@ -8,7 +8,7 @@
 // 아래 값을 본인의 Supabase 프로젝트 정보로 교체하세요
 // ==========================================
 const SUPABASE_URL = 'https://enupwjrxzsfgormzcagu.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_ANON_KEY = 'sb_publishable_LWdAtr0YwH_k5DjdrX6nLg_UjvlPsMn';
 
 // Initialize Supabase client
 let supabaseClient = null;
