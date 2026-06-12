@@ -1,0 +1,630 @@
+/* ===================================
+   결 (Gyeol) — Program Page Styles
+   =================================== */
+
+/* --- Program Page Header --- */
+.program-header {
+  padding: 140px 0 40px;
+  text-align: center;
+}
+
+.program-header .page-title {
+  font-size: clamp(60px, 10vw, 120px);
+  font-weight: 200;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin-bottom: 12px;
+}
+
+.program-header .page-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* --- Song Sections --- */
+.program-songs {
+  display: flex;
+  flex-direction: column;
+}
+
+.program-song {
+  padding: 96px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.program-song:last-child {
+  border-bottom: none;
+}
+
+.song-header {
+  margin-bottom: 48px;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.song-number {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  padding-top: 8px;
+}
+
+.song-title-group {
+  flex: 1;
+}
+
+.song-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.song-composer {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* --- Profile Grid (4 columns) --- */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* --- Profile Card --- */
+.profile-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.45s var(--ease);
+  cursor: pointer;
+}
+
+.profile-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Photo Area */
+.profile-photo-wrapper {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-card-alt);
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.profile-card:hover .profile-photo {
+  transform: scale(1.05);
+}
+
+/* Initials Fallback */
+.profile-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: 200;
+  color: var(--text-tertiary);
+  position: absolute;
+  top: 0;
+  left: 0;
+  letter-spacing: -0.02em;
+  user-select: none;
+}
+
+/* Profile Info */
+.profile-info {
+  padding: 16px 18px 18px;
+}
+
+.profile-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.profile-role {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* --- Staff Section --- */
+.program-staff {
+  padding: 80px 0 40px;
+}
+
+.staff-section-header {
+  margin-bottom: 48px;
+}
+
+.staff-category {
+  margin-bottom: 48px;
+}
+
+.staff-category-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* --- Navigation filter pills (optional song filter) --- */
+.program-nav {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 16px 0 24px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 60px;
+  z-index: 100;
+  background: transparent;
+}
+
+.program-nav-pill {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  white-space: nowrap;
+}
+
+.program-nav-pill:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.program-nav-pill.active {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border-color: var(--text-primary);
+}
+
+/* --- Photo Guide Banner --- */
+.photo-guide {
+  margin-top: 40px;
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  font-size: 13px;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.photo-guide-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* ===================================
+   Responsive
+   =================================== */
+@media (max-width: 1024px) {
+  .profile-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .program-song {
+    padding: 48px 0;
+  }
+
+  .song-header {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .song-number {
+    padding-top: 0;
+  }
+
+  .profile-info {
+    padding: 14px 14px 16px;
+  }
+
+  .profile-name {
+    font-size: 14px;
+  }
+
+  .profile-initials {
+    font-size: 32px;
+  }
+
+  .program-nav {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 16px;
+  }
+
+  .program-nav::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .profile-photo-wrapper {
+    aspect-ratio: 4 / 5;
+  }
+
+  .profile-info {
+    padding: 12px 12px 14px;
+  }
+
+  .profile-name {
+    font-size: 13px;
+  }
+
+  .profile-role {
+    font-size: 11px;
+  }
+
+  .profile-initials {
+    font-size: 28px;
+  }
+
+  .program-header {
+    padding: 120px 0 24px;
+  }
+}
+
+/* --- Composer & Performer Row Layout Split --- */
+.composer-row-wrapper {
+  margin-bottom: 40px;
+}
+
+.performer-row-wrapper {
+  margin-top: 40px;
+}
+
+.row-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ===================================
+   Timeline Layout Styles
+   =================================== */
+.timeline-container {
+  position: relative;
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 40px 0;
+  overflow: hidden;
+}
+
+/* Vertical wavy line down the center */
+.timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 60px;
+  background: url('assets/wavy_line.png') repeat-y center top;
+  background-size: 60px auto;
+  transform: translateX(-50%);
+  z-index: 1;
+  opacity: 0.9;
+}
+
+body.light-mode .timeline-line {
+  mix-blend-mode: multiply;
+}
+
+body:not(.light-mode) .timeline-line {
+  filter: invert(1);
+  opacity: 0.85;
+}
+
+/* Faint background watermark text */
+.timeline-watermark {
+  display: none !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(60px, 12vw, 120px);
+  font-weight: 900;
+  color: var(--glass-border);
+  opacity: 0.25;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 0;
+  user-select: none;
+}
+
+/* Timeline Item base */
+.timeline-item {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 60px;
+  box-sizing: border-box;
+}
+
+/* Even elements are on the right side of the timeline */
+.timeline-item.right {
+  justify-content: flex-start;
+  margin-left: 50%;
+}
+
+/* Hide dot and connector straight lines completely */
+.timeline-dot,
+.timeline-connector {
+  display: none !important;
+}
+
+/* Container for multiple cards in the same group */
+.timeline-cards-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.timeline-item.left .timeline-cards-group {
+  justify-content: flex-end;
+  margin-right: 60px;
+}
+.timeline-item.right .timeline-cards-group {
+  justify-content: flex-start;
+  margin-left: 60px;
+}
+
+/* Editorial profile card — 3pt (4px) margin between content and border */
+.timeline-card {
+  display: flex;
+  flex-direction: row;
+  width: 322px;
+  height: 240px;
+  background: transparent;
+  border: 2px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 4px; /* 3pt ≈ 4px gap between content and border */
+  gap: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s var(--ease);
+  box-shadow: var(--shadow-card);
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 4:5 Aspect Ratio Photo — flex: none, natural height fills the padded card */
+.timeline-photo-wrapper {
+  width: 148px;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-card-alt);
+  border-radius: 8px;
+  align-self: stretch; /* fills the inner height */
+}
+
+.timeline-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.timeline-card:hover .timeline-photo {
+  transform: scale(1.05);
+}
+
+.timeline-photo-overlay {
+  position: absolute;
+  top: 20px;
+  right: 12px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: #1d1d1f; /* Dark text overlay visible on light photos */
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.timeline-info-wrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Song title on top, identity at bottom */
+  padding: 12px 14px;
+  box-sizing: border-box;
+  position: relative;
+  background: transparent;
+}
+
+.timeline-card-meta {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  text-transform: none;
+  pointer-events: none;
+}
+
+.timeline-card-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Rotated Role/Instrument */
+.timeline-card-role {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* Large horizontal Name next to photo */
+.timeline-card-name {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin: 0;
+  text-align: start;
+}
+
+/* Card Hover Glow and Motion Animations */
+.timeline-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  border-color: var(--border-strong); /* Keep the standard border-strong */
+  box-shadow: 0 10px 30px rgba(210, 161, 114, 0.4);
+}
+
+body:not(.light-mode) .timeline-card:hover {
+  box-shadow: 0 10px 30px rgba(210, 161, 114, 0.6);
+}
+
+/* Responsive Timeline */
+@media (max-width: 768px) {
+  .program-nav {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 16px;
+    justify-content: flex-start;
+  }
+
+  .timeline-line {
+    left: 12px;
+    transform: none;
+    width: 36px;
+    background-size: 36px auto;
+  }
+  
+  .timeline-watermark {
+    font-size: clamp(50px, 10vw, 80px);
+    left: 60%;
+  }
+
+  .timeline-item {
+    width: 100%;
+    justify-content: flex-start;
+    margin-left: 0 !important;
+    margin-bottom: 40px;
+  }
+
+  .timeline-cards-group {
+    margin-left: 68px !important;
+    margin-right: 0 !important;
+    justify-content: flex-start !important;
+    width: calc(100% - 78px);
+  }
+
+  .timeline-card {
+    width: 100% !important;
+    max-width: 350px !important;
+    height: 220px;
+    padding: 4px; /* keep 3pt border gap on mobile too */
+    gap: 0;
+  }
+
+  /* 4:5 Aspect Ratio Photo on Mobile */
+  .timeline-photo-wrapper {
+    width: 140px;
+    border-radius: 6px;
+  }
+
+  .timeline-info-wrapper {
+    padding: 14px 14px 14px 16px;
+  }
+
+  .timeline-photo-overlay {
+    top: 12px;
+    right: 8px;
+    font-size: 9px;
+  }
+
+  .timeline-card-name {
+    font-size: 26px;
+  }
+
+  .timeline-card-role {
+    font-size: 13px;
+  }
+
+  .timeline-card-meta {
+    font-size: 13px;
+  }
+}
+
+

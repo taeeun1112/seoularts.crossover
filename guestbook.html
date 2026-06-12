@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>방명록 — 결 GYEOL</title>
+  <meta name="description" content="결 GYEOL 방명록 — 졸업공연을 함께한 모든 분들에게 메시지를 남겨주세요.">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="light-mode">
+
+  <!-- Navigation (pill-button style like reference image 2) -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand"><img src="assets/gyeol_calligraphy_no_slogan.png" class="gyeol-logo-nav" alt="결"></a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">ALL</a>
+        <a href="program.html" class="nav-link">PROFILE</a>
+        <a href="guestbook.html" class="nav-link active">GUESTBOOK</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1 class="page-title"><img src="assets/gyeol_calligraphy.png" class="gyeol-logo-page" alt="결"></h1>
+    <div class="page-stats" id="entryStats">
+      <span class="count" id="entryCount">—</span>
+      <span>개의 메시지</span>
+    </div>
+  </header>
+
+  <!-- Marquee -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <span>태평가</span><span class="marquee-dot">•</span>
+        <span>나의 바람</span><span class="marquee-dot">•</span>
+        <span>끝서리</span><span class="marquee-dot">•</span>
+        <span>심중전</span><span class="marquee-dot">•</span>
+        <span>수양대군 · 현덕왕후 · 마침표의 또 다른 이름은</span><span class="marquee-dot">•</span>
+        <span>Whimori</span><span class="marquee-dot">•</span>
+        <span>처용가</span><span class="marquee-dot">•</span>
+        <span>고성오광대</span><span class="marquee-dot">•</span>
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        <span>태평가</span><span class="marquee-dot">•</span>
+        <span>나의 바람</span><span class="marquee-dot">•</span>
+        <span>끝서리</span><span class="marquee-dot">•</span>
+        <span>심중전</span><span class="marquee-dot">•</span>
+        <span>수양대군 · 현덕왕후 · 마침표의 또 다른 이름은</span><span class="marquee-dot">•</span>
+        <span>Whimori</span><span class="marquee-dot">•</span>
+        <span>처용가</span><span class="marquee-dot">•</span>
+        <span>고성오광대</span><span class="marquee-dot">•</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guestbook Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="guestbook-grid" id="guestbookGrid">
+        <!-- Skeleton loaders -->
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Write FAB -->
+  <button class="write-fab" id="writeFab" onclick="openModal()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg>
+    글쓰기
+  </button>
+
+  <!-- Write Modal -->
+  <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">방명록 남기기</h2>
+        <button class="modal-close" onclick="closeModal()" aria-label="닫기">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="guestbookForm" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="nickname">닉네임</label>
+            <input class="form-input" type="text" id="nickname" name="nickname" placeholder="이름 또는 닉네임을 입력하세요"
+              maxlength="30" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="recipient">
+              받는 사람
+              <span class="form-optional">(선택)</span>
+            </label>
+            <input class="form-input" type="text" id="recipient" name="recipient" placeholder="특정 연주자에게 보내고 싶다면"
+              maxlength="50">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">메시지</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="축하, 응원, 감사의 메시지를 남겨주세요"
+              maxlength="500" required></textarea>
+            <div class="form-char-count" id="charCount">0 / 500</div>
+            <div class="form-warning-text" style="font-size: 11px; color: var(--text-tertiary); margin-top: 8px; line-height: 1.45; letter-spacing: -0.01em; word-break: keep-all;">
+              욕설 • 비방 등 부적절한 게시물은 삭제될 수 있으며, 작성자는 이에 대한 법적 책임을 질 수 있습니다.
+            </div>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">
+            등록하기
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span class="toast-icon" id="toastIcon"></span>
+    <span id="toastMessage"></span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand"><img src="assets/gyeol_calligraphy.png" class="gyeol-logo-footer" alt="결"> </div>
+        <div class="footer-text">졸업공연</div>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">홈</a>
+          <a href="program.html" class="footer-link">프로그램</a>
+          <a href="guestbook.html" class="footer-link">방명록</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+  <script>
+    // ==========================================
+    // Guestbook Page Logic
+    // ==========================================
+
+    let allEntries = [];
+
+    // Load all entries
+    async function loadEntries() {
+      const grid = document.getElementById('guestbookGrid');
+      const countEl = document.getElementById('entryCount');
+
+      try {
+        allEntries = await GuestbookApp.getEntries();
+        countEl.textContent = allEntries.length;
+        renderEntries(allEntries);
+      } catch (error) {
+        console.error('Failed to load entries:', error);
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3 class="empty-title">연결에 실패했습니다</h3>
+            <p class="empty-desc">Supabase 설정을 확인해주세요</p>
+          </div>
+        `;
+      }
+    }
+
+    // Render entries
+    function renderEntries(entries) {
+      const grid = document.getElementById('guestbookGrid');
+      grid.innerHTML = '';
+
+      if (entries.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3 class="empty-title">아직 방명록이 없습니다</h3>
+            <p class="empty-desc">첫 번째 메시지를 남겨보세요</p>
+          </div>
+        `;
+        return;
+      }
+
+      const variants = ['', '', 'light', '', 'accent', '', 'light', '', '', 'light'];
+
+      entries.forEach((entry, index) => {
+        const num = String(index + 1).padStart(2, '0');
+        const variant = variants[index % variants.length];
+        const date = new Date(entry.created_at).toLocaleDateString('ko-KR', {
+          year: 'numeric', month: '2-digit', day: '2-digit'
+        });
+
+        // Make some cards featured (span 2 columns)
+        const isFeatured = (index % 7 === 0 && index !== 0) || (index === 2);
+
+        const secret = isSecretMessage(entry.message);
+        const isUnlocked = window.unlockedMessages.has(entry.message);
+
+        const card = document.createElement('div');
+        card.className = `entry-card ${variant}${isFeatured ? ' featured' : ''}${secret && !isUnlocked ? ' is-secret-locked' : ''}`;
+        card.style.animation = `fadeInUp 0.6s ${index * 0.05}s both var(--ease-out-expo)`;
+
+        const recipientHtml = entry.recipient
+          ? `<span class="entry-recipient" style="cursor:pointer; text-decoration:underline;" onclick="openProfileModalByName('${entry.recipient.trim()}')">To. ${escapeHtml(entry.recipient)}</span>`
+          : '';
+
+        const contentHtml = secret && !isUnlocked
+          ? `<p class="entry-message secret-text">비밀 메시지입니다. (클릭하여 열기)</p>`
+          : `<p class="entry-message">${escapeHtml(secret ? entry.message.substring(8) : entry.message)}</p>`;
+
+        card.innerHTML = `
+          <span class="entry-number">${num}</span>
+          <div class="entry-arrow">↗</div>
+          ${recipientHtml}
+          ${contentHtml}
+          <div class="entry-footer">
+            <span class="entry-author">${escapeHtml(entry.nickname)}</span>
+            <span class="entry-date">${date}</span>
+          </div>
+        `;
+
+        if (secret && !isUnlocked) {
+          card.addEventListener('click', (e) => {
+            if (e.target.classList.contains('entry-recipient')) return;
+            const textEl = card.querySelector('.entry-message');
+            handleSecretCardUnlock(card, entry.message, textEl, entry.recipient);
+          });
+          card.style.cursor = 'pointer';
+        } else if (entry.recipient) {
+          card.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('entry-recipient')) {
+              openProfileModalByName(entry.recipient.trim());
+            }
+          });
+          card.style.cursor = 'pointer';
+        }
+
+        grid.appendChild(card);
+      });
+    }
+
+    // Modal controls (delegated to search flow)
+    function openModal() {
+      if (typeof window.openModal === 'function') {
+        window.openModal();
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === e.currentTarget) {
+        closeModal();
+      }
+    }
+
+    // Character count
+    document.getElementById('message').addEventListener('input', function () {
+      const count = this.value.length;
+      const countEl = document.getElementById('charCount');
+      countEl.textContent = `${count} / 500`;
+      countEl.className = count > 450 ? 'form-char-count warning' : 'form-char-count';
+    });
+
+    // Submit form
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const nickname = document.getElementById('nickname').value.trim();
+      const recipient = document.getElementById('recipient').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!nickname || !message) return;
+
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      try {
+        await GuestbookApp.addEntry({
+          nickname,
+          recipient: recipient || null,
+          message
+        });
+
+        showToast('success', '✅', '메시지가 등록되었습니다!');
+        document.getElementById('guestbookForm').reset();
+        document.getElementById('charCount').textContent = '0 / 500';
+        closeModal();
+
+        // Reload entries
+        await loadEntries();
+      } catch (error) {
+        console.error('Submit error:', error);
+        showToast('error', '❌', '등록에 실패했습니다. 다시 시도해주세요.');
+      } finally {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    }
+
+    // Toast
+    function showToast(type, icon, message) {
+      const toast = document.getElementById('toast');
+      const toastIcon = document.getElementById('toastIcon');
+      const toastMessage = document.getElementById('toastMessage');
+
+      toast.className = `toast ${type}`;
+      toastIcon.textContent = icon;
+      toastMessage.textContent = message;
+
+      // Show
+      requestAnimationFrame(() => {
+        toast.classList.add('show');
+      });
+
+      // Hide after 3s
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Escape HTML
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      loadEntries();
+    });
+  </script>
+</body>
+
+</html>
