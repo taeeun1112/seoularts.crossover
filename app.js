@@ -1081,3 +1081,44 @@ document.addEventListener('keydown', (e) => {
     closeWriteModal();
   }
 });
+
+// Initialize Quick Scroll (Top / Bottom) Buttons
+(function initQuickScroll() {
+  document.addEventListener('DOMContentLoaded', () => {
+    // Create container
+    const container = document.createElement('div');
+    container.className = 'quick-scroll-container';
+
+    // Top Button
+    const topBtn = document.createElement('button');
+    topBtn.className = 'quick-scroll-btn';
+    topBtn.id = 'quickScrollTop';
+    topBtn.setAttribute('aria-label', '맨 위로 이동');
+    topBtn.innerHTML = `
+      <svg viewBox="0 0 24 24">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    `;
+    topBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Bottom Button
+    const bottomBtn = document.createElement('button');
+    bottomBtn.className = 'quick-scroll-btn';
+    bottomBtn.id = 'quickScrollBottom';
+    bottomBtn.setAttribute('aria-label', '맨 아래로 이동');
+    bottomBtn.innerHTML = `
+      <svg viewBox="0 0 24 24">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    `;
+    bottomBtn.addEventListener('click', () => {
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+    });
+
+    container.appendChild(topBtn);
+    container.appendChild(bottomBtn);
+    document.body.appendChild(container);
+  });
+})();

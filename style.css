@@ -1969,3 +1969,75 @@ body:not(.light-mode) .gyeol-logo-footer {
   text-transform: uppercase;
 }
 
+/* ===================================
+   Quick Scroll Buttons
+   =================================== */
+.quick-scroll-container {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quick-scroll-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--glass-bg);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.3s var(--ease);
+  cursor: pointer;
+}
+
+.quick-scroll-btn:hover {
+  transform: translateY(-2px);
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-elevated);
+}
+
+.quick-scroll-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Light mode specific adjustment */
+body.light-mode .quick-scroll-btn {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 16px rgba(45, 38, 34, 0.08);
+}
+body.light-mode .quick-scroll-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 20px rgba(45, 38, 34, 0.12);
+}
+
+@media (max-width: 768px) {
+  .quick-scroll-container {
+    right: 16px;
+    bottom: 80px; /* Shift up on mobile to avoid overlap with menu toggle/fabs */
+  }
+  .quick-scroll-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .quick-scroll-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
