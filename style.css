@@ -338,26 +338,25 @@ input, textarea {
   align-items: center;
   gap: 8px;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 14px 32px;
   border-radius: var(--radius-full);
-  background: var(--text-primary);
-  color: var(--bg-primary);
+  background: transparent;
+  border: 1.5px solid var(--text-primary);
+  color: var(--text-primary);
   transition: all 0.4s var(--ease);
   animation: fadeInUp 1.2s var(--ease-out-expo) 1s both;
 }
 
 .hero-cta:hover {
-  transform: scale(1.04);
-  box-shadow: 0 0 40px rgba(245, 245, 247, 0.15);
+  transform: translateY(-2px) scale(1.02);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(210, 161, 114, 0.55);
 }
 
-.hero-cta .arrow {
-  transition: transform 0.3s var(--ease);
-}
-
-.hero-cta:hover .arrow {
-  transform: translateX(4px);
+body.light-mode .hero-cta:hover {
+  background: rgba(45, 38, 34, 0.04);
+  box-shadow: 0 10px 30px rgba(210, 161, 114, 0.35);
 }
 
 .hero-scroll-indicator {
