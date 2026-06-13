@@ -8,6 +8,15 @@
   text-align: center;
 }
 
+.program-hint {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-top: 16px;
+  opacity: 0.85;
+}
+
 .program-header .page-title {
   font-size: clamp(60px, 10vw, 120px);
   font-weight: 200;
