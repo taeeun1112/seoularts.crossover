@@ -720,4 +720,190 @@ body.light-mode .program-search-input:focus {
   }
 }
 
+/* ===================================
+   Professor Guestbook Section
+   =================================== */
+.professor-section {
+  padding: 72px 0 56px;
+  border-bottom: 1px solid var(--border);
+}
+
+.professor-section-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.professor-section-title {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800; /* 더 두껍게 설정 */
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.professor-section-subtitle {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.professor-cards-row {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.professor-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 360px;
+  max-width: 100%;
+  height: 140px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-strong);
+  border-radius: 16px;
+  padding: 24px 28px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-card);
+  box-sizing: border-box;
+}
+
+/* 호버 시 나타나는 고급스러운 골드 그라데이션 테두리 */
+.professor-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  padding: 2px; /* 테두리 두께 */
+  background: linear-gradient(135deg, #d2a172, #edd2b7, #b27a43);
+  -webkit-mask: 
+     linear-gradient(#fff 0 0) content-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+
+.professor-card:hover::before {
+  opacity: 1;
+}
+
+.professor-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: transparent;
+  box-shadow: 0 20px 40px rgba(210, 161, 114, 0.25);
+  background: var(--bg-hover);
+}
+
+body:not(.light-mode) .professor-card:hover {
+  box-shadow: 0 20px 40px rgba(210, 161, 114, 0.4);
+}
+
+.professor-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+}
+
+.professor-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #d2a172; /* 따뜻한 골드 톤 포인트 */
+  text-transform: uppercase;
+}
+
+.professor-name {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* 화살표 아이콘 스타일 */
+.professor-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255, 255, 255, 0.02);
+  flex-shrink: 0;
+}
+
+.professor-arrow svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.professor-card:hover .professor-arrow {
+  background: #d2a172;
+  border-color: #d2a172;
+  color: #ffffff;
+}
+
+.professor-card:hover .professor-arrow svg {
+  transform: translateX(2px);
+}
+
+@media (max-width: 768px) {
+  .professor-cards-row {
+    gap: 12px;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 16px;
+  }
+
+  .professor-card {
+    width: calc(50% - 6px);
+    height: 110px;
+    padding: 16px 18px;
+    border-radius: 12px;
+  }
+
+  .professor-card::before {
+    border-radius: 10px;
+  }
+
+  .professor-info {
+    gap: 4px;
+  }
+
+  .professor-name {
+    font-size: 20px;
+  }
+
+  .professor-label {
+    font-size: 11px;
+  }
+
+  .professor-arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .professor-arrow svg {
+    width: 14px;
+    height: 14px;
+  }
+}
 

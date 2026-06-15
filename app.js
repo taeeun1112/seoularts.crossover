@@ -1062,7 +1062,234 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+// ==========================================
+// Professor Guestbook Modal (비밀글 없는 버전)
+// ==========================================
+async function openProfessorModal(professorName) {
+  let overlay = document.getElementById('profileOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'profileOverlay';
+    overlay.className = 'profile-overlay';
+    document.body.appendChild(overlay);
+  }
+
+  overlay.innerHTML = `
+    <div class="profile-modal" onclick="event.stopPropagation()">
+      <div class="profile-modal-header-section">
+        <button class="profile-modal-close" id="profileCloseBtn">✕</button>
+        <div class="profile-modal-meta" style="padding-left: 8px;">
+          <div class="profile-modal-details">
+            <h2 class="profile-modal-name">${professorName}</h2>
+            <p class="profile-modal-role">지도교수</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-modal-body">
+        <div class="profile-guestbook-header">
+          <h3>방명록 Messages</h3>
+          <span class="profile-msg-count" id="profileMsgCount">—</span>
+        </div>
+
+        <div class="profile-guestbook-list" id="profileGuestbookList">
+          <div class="skeleton-list">
+            <div class="skeleton skeleton-card" style="height:80px; margin-bottom:12px;"></div>
+            <div class="skeleton skeleton-card" style="height:80px;"></div>
+          </div>
+        </div>
+
+        <button class="profile-write-btn" id="profileWriteBtn">
+          ${professorName} 교수님께 방명록 작성하기
+        </button>
+      </div>
+    </div>
+  `;
+
+  overlay.addEventListener('click', closeProfileModal);
+  document.getElementById('profileCloseBtn').addEventListener('click', closeProfileModal);
+
+  document.getElementById('profileWriteBtn').addEventListener('click', () => {
+    closeProfileModal();
+    openProfessorWriteModal(professorName);
+  });
+
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  // Load guestbook entries for this professor (no secret messages shown)
+  try {
+    const listEl = document.getElementById('profileGuestbookList');
+    const countEl = document.getElementById('profileMsgCount');
+
+    const allEntries = await GuestbookApp.getEntries();
+    const filtered = allEntries.filter(entry => {
+      if (!entry.recipient) return false;
+      return entry.recipient.trim() === professorName;
+    });
+
+    countEl.textContent = `${filtered.length}개의 메시지`;
+    listEl.innerHTML = '';
+
+    if (filtered.length === 0) {
+      listEl.innerHTML = `
+        <div class="profile-empty-state">
+          <div>아직 메시지가 없습니다.</div>
+          <div style="font-size:12px; color:var(--text-secondary); margin-top:4px;">교수님께 첫 번째 따뜻한 한마디를 남겨보세요!</div>
+        </div>
+      `;
+      return;
+    }
+
+    filtered.forEach((entry) => {
+      const card = document.createElement('div');
+      const date = new Date(entry.created_at).toLocaleDateString('ko-KR', {
+        year: 'numeric', month: '2-digit', day: '2-digit'
+      });
+
+      // For professor board: show secret messages as plain text (no lock)
+      const rawMsg = entry.message;
+      const displayMsg = rawMsg.startsWith('[SECRET]') ? rawMsg.substring(8) : rawMsg;
+
+      card.className = 'profile-entry-card';
+      card.innerHTML = `
+        <p class="profile-entry-msg">${escapeHtml(displayMsg)}</p>
+        <div class="profile-entry-footer">
+          <span class="profile-entry-author">From. ${escapeHtml(entry.nickname)}</span>
+          <span class="profile-entry-date">${date}</span>
+        </div>
+      `;
+      listEl.appendChild(card);
+    });
+  } catch (error) {
+    console.error('Failed to load professor guestbook:', error);
+    document.getElementById('profileGuestbookList').innerHTML = `
+      <div class="profile-empty-state"><div>에러가 발생했습니다.</div></div>
+    `;
+  }
+}
+
+// Professor-specific write modal (no secret message option)
+function openProfessorWriteModal(professorName) {
+  let overlay = document.getElementById('appWriteOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'appWriteOverlay';
+    overlay.className = 'modal-overlay';
+    document.body.appendChild(overlay);
+  }
+
+  overlay.innerHTML = `
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">방명록 남기기</h2>
+        <button class="modal-close" id="appWriteCloseBtn">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="appWriteForm">
+          <div class="form-group">
+            <label class="form-label" for="appNickname">닉네임</label>
+            <input
+              class="form-input"
+              type="text"
+              id="appNickname"
+              name="nickname"
+              placeholder="이름 또는 닉네임을 입력하세요"
+              maxlength="30"
+              required
+            >
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="appRecipient">받는 분</label>
+            <input
+              class="form-input"
+              type="text"
+              id="appRecipient"
+              name="recipient"
+              value="${professorName}"
+              readonly
+              style="background:rgba(255,255,255,0.02); color:var(--text-secondary); cursor:not-allowed;"
+            >
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="appMessage">메시지</label>
+            <textarea
+              class="form-textarea"
+              id="appMessage"
+              name="message"
+              placeholder="${professorName} 교수님께 감사, 응원의 메시지를 남겨주세요"
+              maxlength="500"
+              required
+            ></textarea>
+            <div class="form-char-count" id="appCharCount">0 / 500</div>
+            <div class="form-warning-text" style="font-size: 11px; color: var(--text-tertiary); margin-top: 8px; line-height: 1.45; letter-spacing: -0.01em; word-break: keep-all;">
+              욕설 • 비방 등 부적절한 게시물은 삭제될 수 있으며, 작성자는 이에 대한 법적 책임을 질 수 있습니다.
+            </div>
+          </div>
+
+          <button type="submit" class="form-submit" id="appSubmitBtn" style="margin-top: 32px;">
+            등록하기
+          </button>
+        </form>
+      </div>
+    </div>
+  `;
+
+  overlay.addEventListener('click', closeWriteModal);
+  document.getElementById('appWriteCloseBtn').addEventListener('click', closeWriteModal);
+
+  const textarea = document.getElementById('appMessage');
+  textarea.addEventListener('input', function () {
+    const count = this.value.length;
+    const countEl = document.getElementById('appCharCount');
+    countEl.textContent = `${count} / 500`;
+    countEl.className = count > 450 ? 'form-char-count warning' : 'form-char-count';
+  });
+
+  document.getElementById('appWriteForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('appSubmitBtn');
+    const nickname = document.getElementById('appNickname').value.trim();
+    const message = textarea.value.trim();
+
+    if (!nickname || !message) return;
+
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+      await GuestbookApp.addEntry({
+        nickname,
+        recipient: professorName,
+        message // no [SECRET] prefix for professor board
+      });
+
+      showAppToast('success', '✅', '메시지가 등록되었습니다!');
+      closeWriteModal();
+
+      // Reopen professor modal to show new message
+      setTimeout(() => {
+        openProfessorModal(professorName);
+      }, 500);
+
+    } catch (error) {
+      console.error('Submit error:', error);
+      showAppToast('error', '❌', '등록에 실패했습니다. 다시 시도해주세요.');
+    } finally {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  });
+
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    document.getElementById('appNickname').focus();
+  }, 100);
+}
+
 // Global openModal overwrite (guides users to click a profile)
+
 window.openModal = function () {
   openSearchModal();
   setTimeout(() => {
